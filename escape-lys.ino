@@ -1,14 +1,25 @@
-int red = 6;
-int blue = 5;
+/*
+ * This code fades through the BLUE and RED spectre of a RGB LED-strip
+ * See: https://github.com/cybrairai/LED-Arduino/
+ * 
+ * The pin used for RED is 6 and 5 for BLUE, which is defined bellow
+ * 
+ * Author: Adrian Helle (adriah)
+ */
+#define RED 6
+#define BLUE 5
 
+//The current fade value
 int valRed;
 int valBlue;
+
+//booleans to check if it should fade the color down or up
 bool downR;
 bool downB;
 
 void setup() {
-  pinMode(red, OUTPUT);
-  pinMode(blue, OUTPUT);
+  pinMode(RED, OUTPUT);
+  pinMode(BLUE, OUTPUT);
   valRed = 0;
   valBlue = 125;
   downR = false;
@@ -38,8 +49,8 @@ void loop() {
     valBlue+=1;
   }
 
-  analogWrite(red, valRed);
-  analogWrite(blue, valBlue);
+  analogWrite(RED, valRed);
+  analogWrite(BLUE, valBlue);
   
   delay(60);
 }
