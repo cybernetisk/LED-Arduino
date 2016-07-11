@@ -7,6 +7,7 @@ i Escape.
 
 ## Changelog:
 
+#### 11/07-16
 * Progget for interfacen (en fysisk modul med kanpper og sliders)
 * Lagt til forskjellige modes
 	* Egen mode for å sette hver farge (3 knapper og et potmeter)
