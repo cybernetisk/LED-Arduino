@@ -18,39 +18,39 @@ bool downR;
 bool downB;
 
 void setup() {
-  pinMode(RED, OUTPUT);
-  pinMode(BLUE, OUTPUT);
-  valRed = 0;
-  valBlue = 125;
-  downR = false;
-  downB = true;
+	pinMode(RED, OUTPUT);
+	pinMode(BLUE, OUTPUT);
+	valRed = 0;
+	valBlue = 125;
+	downR = false;
+	downB = true;
 }
 
 void loop() {
-  if (valRed == 250) {
-    downR = true;
-  } else if (valRed == 5){
-    downR = false;
-  }
-  if (valBlue == 250) {
-    downB = true;
-  } else if (valBlue == 5) {
-    downB = false;
-  }
-  
-  if(downR) {
-    valRed-=1;
-  } else {
-    valRed+=1;
-  }
-  if(downB) {
-    valBlue-=1;
-  } else {
-    valBlue+=1;
-  }
+	if (valRed == 100) {
+		downR = true;
+	} else if (valRed == 5){
+		downR = false;
+	}
+	if (valBlue == 250) {
+		downB = true;
+	} else if (valBlue == 40) {
+		downB = false;
+	}
 
-  analogWrite(RED, valRed);
-  analogWrite(BLUE, valBlue);
-  
-  delay(60);
+	if(downR) {
+		valRed-=1;
+	} else {
+		valRed+=1;
+	}
+	if(downB) {
+		valBlue-=1;
+	} else {
+		valBlue+=1;
+	}
+
+	analogWrite(RED, valRed);
+	analogWrite(BLUE, valBlue);
+
+	delay(80);
 }
