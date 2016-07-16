@@ -1,9 +1,9 @@
 /*
- * This code fades through the BLUE and RED spectre of a RGB LED-strip
- * See: https://github.com/cybrairai/LED-Arduino/
- * 
- * Author: Adrian Helle (adriah)
- */
+* This code fades through the BLUE and RED spectre of a RGB LED-strip
+* See: https://github.com/cybrairai/LED-Arduino/
+*
+* Author: Adrian Helle (adriah)
+*/
 #define RED 6
 #define GREEN 3
 #define BLUE 5
@@ -28,13 +28,10 @@ int valBlue;
 bool downR;
 bool downB;
 
-bool fade;
-bool setR;
-bool setG;
-bool setB;
-bool off;
+int mode = 0000;
 
-void setup() {
+void setup()
+{
   pinMode(RED, OUTPUT);
   pinMode(BLUE, OUTPUT);
   pinMode(GREEN, OUTPUT);
@@ -52,72 +49,54 @@ void setup() {
   #ifdef DEBUG
   Serial.begin(9600);
   #endif
-  fade = true;
-  setR = false;
-  setG = false;
-  setB = false;  
 }
 
-void loop() {
+void loop()
+{
   if (digitalRead(BUTTON_MODE) == LOW) {
-    fade = true;
-    setR = false;
-    setG = false;
-    setB = false;  
-	#ifdef DEBUG
+    mode = 1000;
+    #ifdef DEBUG
     Serial.println("MODE");
-	#endif
-	delay(200);
+    #endif
+    delay(200);
   } else if (digitalRead(BUTTON_R) == LOW) {
-    fade = false;
-    setR = true;
-    setG = false;
-    setB = false;
-	#ifdef DEBUG
+    mode = 0100;
+    #ifdef DEBUG
     Serial.println("R");
-	#endif
-	delay(200);
+    #endif
+    delay(200);
   } else if (digitalRead(BUTTON_G) == LOW) {
-    fade = false;
-    setR = false;
-    setG = true;
-    setB = false;
-	#ifdef DEBUG
+    mode = 0010;
+    #ifdef DEBUG
     Serial.println("G");
-	#endif
-	delay(200);
+    #endif
+    delay(200);
   } else if (digitalRead(BUTTON_B) == LOW) {
-    fade = false;
-    setR = false;
-    setG = false;
-    setB = true;
-	#ifdef DEBUG
+    mode = 0001;
+    #ifdef DEBUG
     Serial.println("B");
-	#endif
-	delay(200);
+    #endif
+    delay(200);
   } else if (digitalRead(BUTTON_OFF_ON) == LOW){
-    fade = false;
-    setR = false;
-    setG = false;
-    setB = false;
-	#ifdef DEBUG
+    mode = 0000;
+    #ifdef DEBUG
     Serial.println("OFF");
-	#endif
+    #endif
 
     analogWrite(RED, 0);
     analogWrite(GREEN, 0);
     analogWrite(BLUE, 0);
-	delay(200);
+    delay(200);
   }
 
-  if (fade) {
+  if (mode == 1000) {
     fader();
-  } else if (setR) {
+  } else if (mode == 0100) {
     analogWrite(RED, analogRead(POT_METER)*1023/255);
-  } else if (setG) {
+  } else if (mode == 0010) {
     analogWrite(GREEN, analogRead(POT_METER)*1023/255);
-  } else if (setB) {
-    analogWrite(BLUE, analogRead(POT_METER)*1023/255);    
+  } else if (mode == 0001) {
+    analogWrite(BLUE, analogRead(POT_METER)*1023/255);
   }
   #ifdef DEBUG
   Serial.println(analogRead(POT_METER));
@@ -135,7 +114,7 @@ void fader() {
   } else if (valBlue == 5) {
     downB = false;
   }
-  
+
   if(downR) {
     valRed-=1;
   } else {
@@ -149,7 +128,6 @@ void fader() {
 
   analogWrite(RED, valRed);
   analogWrite(BLUE, valBlue);
-  
+
   delay(60);
 }
-
