@@ -14,10 +14,6 @@ i Escape.
 	* Egen mode for å fade gjennom blå-rød
 * Lagt til en knapp for av og på
 
-<<<<<<< HEAD
 #### 16/07-16
-=======
-### 16/07-16
->>>>>>> 40e7ff7... Changelog in README
 * Lagt til debugging
 * Lagt til delay når knapp blir trykket
