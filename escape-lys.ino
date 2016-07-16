@@ -17,6 +17,8 @@
 //#define CLOCK_PIN 12
 //#define DATA_PIN 13
 #define POT_METER A0
+// Uncomment this for serial debugging:
+//#define DEBUG
 
 //The current fade value
 int valRed;
@@ -47,7 +49,9 @@ void setup() {
   valBlue = 125;
   downR = false;
   downB = true;
+  #ifdef DEBUG
   Serial.begin(9600);
+  #endif
   fade = true;
   setR = false;
   setG = false;
@@ -60,35 +64,50 @@ void loop() {
     setR = false;
     setG = false;
     setB = false;  
+	#ifdef DEBUG
     Serial.println("MODE");
+	#endif
+	delay(200);
   } else if (digitalRead(BUTTON_R) == LOW) {
     fade = false;
     setR = true;
     setG = false;
     setB = false;
+	#ifdef DEBUG
     Serial.println("R");
+	#endif
+	delay(200);
   } else if (digitalRead(BUTTON_G) == LOW) {
     fade = false;
     setR = false;
     setG = true;
     setB = false;
+	#ifdef DEBUG
     Serial.println("G");
+	#endif
+	delay(200);
   } else if (digitalRead(BUTTON_B) == LOW) {
     fade = false;
     setR = false;
     setG = false;
     setB = true;
+	#ifdef DEBUG
     Serial.println("B");
+	#endif
+	delay(200);
   } else if (digitalRead(BUTTON_OFF_ON) == LOW){
     fade = false;
     setR = false;
     setG = false;
     setB = false;
+	#ifdef DEBUG
     Serial.println("OFF");
+	#endif
 
     analogWrite(RED, 0);
     analogWrite(GREEN, 0);
     analogWrite(BLUE, 0);
+	delay(200);
   }
 
   if (fade) {
@@ -100,7 +119,9 @@ void loop() {
   } else if (setB) {
     analogWrite(BLUE, analogRead(POT_METER)*1023/255);    
   }
+  #ifdef DEBUG
   Serial.println(analogRead(POT_METER));
+  #endif
 }
 
 void fader() {
